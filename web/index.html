@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weapon Detection Demo</title>
+    <link rel="icon" href="/static/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <main class="container">
+      <header class="header">
+        <h1>Weapon Detection (AI)</h1>
+        <p class="subtitle">
+          Upload an image or video to run detection and download the annotated output.
+        </p>
+      </header>
+
+      <section class="card">
+        <div class="tabs">
+          <button class="tab active" data-tab="image">Image</button>
+          <button class="tab" data-tab="video">Video</button>
+        </div>
+
+        <div class="panel" id="panel-image">
+          <label class="file">
+            <span>Select an image</span>
+            <input id="imageFile" type="file" accept="image/*" />
+          </label>
+          <button id="runImage" class="btn primary">Run detection</button>
+          <div class="status" id="imageStatus"></div>
+          <div class="preview" id="imagePreview"></div>
+        </div>
+
+        <div class="panel hidden" id="panel-video">
+          <label class="file">
+            <span>Select a video</span>
+            <input id="videoFile" type="file" accept="video/*" />
+          </label>
+          <button id="runVideo" class="btn primary">Run detection</button>
+          <div class="status" id="videoStatus"></div>
+          <div class="preview" id="videoPreview"></div>
+        </div>
+      </section>
+
+      <section class="card note">
+        <h2>Real-time</h2>
+        <p>
+          For webcam/RTSP style feeds, run the Python realtime script:
+          <code>python -m backend.realtime --source 0</code>
+        </p>
+      </section>
+    </main>
+
+    <script src="/static/app.js"></script>
+  </body>
+</html>
+
