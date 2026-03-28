@@ -18,6 +18,8 @@ class Detection:
     label: str
     confidence: float
     xyxy: tuple[int, int, int, int]
+    is_weapon: bool = False
+    is_person: bool = False
 
 
 WEAPON_KEYWORDS = (
@@ -56,7 +58,7 @@ class WeaponDetector:
         # Ultralytics exposes class names on the model.
         self._names = self._model.names
 
-    def detect_weapons(
+    def detect_objects(
         self,
         bgr_image: np.ndarray,
         conf: float = 0.25,
@@ -83,14 +85,14 @@ class WeaponDetector:
 
         for c, score, b in zip(cls, confs, xyxy):
             label = str(self._names.get(int(c), c))
-            if not self._is_weapon_label(label):
-                continue
             x1, y1, x2, y2 = [int(v) for v in b.tolist()]
             out.append(
                 Detection(
                     label=label,
                     confidence=float(score),
                     xyxy=(x1, y1, x2, y2),
+                    is_weapon=self._is_weapon_label(label),
+                    is_person=(label.lower() == "person")
                 )
             )
         return out

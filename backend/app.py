@@ -55,7 +55,7 @@ async def detect_image(file: UploadFile = File(...)) -> FileResponse:
         if bgr is None:
             raise ValueError("Unable to read the uploaded image.")
 
-        dets = detector.detect_weapons(bgr)
+        dets = detector.detect_objects(bgr)
         annotated = draw_detections(bgr, dets)
 
         ok = cv2.imwrite(str(outp), annotated)
@@ -111,7 +111,7 @@ async def detect_video(file: UploadFile = File(...)) -> FileResponse:
             if not ok:
                 break
 
-            dets = detector.detect_weapons(frame)
+            dets = detector.detect_objects(frame)
             annotated = draw_detections(frame, dets)
             writer.write(annotated)
 
